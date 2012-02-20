@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jayway.android.robotium.remotesolo</groupId>
+	<artifactId>robotium-client</artifactId>
+	<packaging>jar</packaging>
+	<name>Robotium :: Remote Solo</name>
+	<parent>
+		<groupId>com.jayway.android.robotium</groupId>
+		<artifactId>robotium</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<repositories>
+		<repository>
+			<id>repository.jboss.org</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>powermock-repo</id>
+			<url>http://powermock.googlecode.com/svn/repo/</url>
+		</repository>
+	</repositories>
+	<properties>
+		<powermock.version>1.4</powermock.version>
+	</properties>
+
+
+
+
+	<dependencies>
+    <dependency>
+      <groupId>com.jayway.android.robotium</groupId>
+      <artifactId>robotium-solo</artifactId>
+    </dependency>
+		<dependency>
+		  <groupId>org.objenesis</groupId>
+		  <artifactId>objenesis</artifactId>
+		  <version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.1.Final</version>
+			
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<scope>provided</scope>
+			
+		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android-test</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+    <dependency>
+      <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+      <artifactId>android-maven-plugin</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+				
+		<dependency>
+			<groupId>org.powermock.modules</groupId>
+			<artifactId>powermock-module-junit3</artifactId>
+			<version>${powermock.version}</version>
+			<scope>provided</scope>
+
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-util</artifactId>
+			<version>3.2</version>
+			<type>jar</type>
+			
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.android.robotium.common</groupId>
+			<artifactId>robotium-common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<configuration></configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<configuration></configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
