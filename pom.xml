@@ -20,9 +20,9 @@
         <android.jar.version>2.3.3</android.jar.version>
     </properties>
     <scm>
-        <url>http://github.com/jayway/robotium/tree/${scm.branch}</url>
-        <connection>scm:git:git://github.com/jayway/robotium.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/jayway/robotium.git</developerConnection>
+        <url>https://github.com/cyberelf/robotium-remote</url>
+        <connection>scm:git:git://github.com/cyberelf/robotium-remote.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:cyberelf/robotium-remote.git</developerConnection>
     </scm>
     <issueManagement>
         <system>Google Code Issue Tracking</system>
