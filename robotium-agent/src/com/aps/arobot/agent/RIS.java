@@ -62,10 +62,23 @@ public class RIS extends Instrumentation {
 		//Bind server 		
 		mConnection = new AServiceConnection();
 		Intent sintent = new Intent("com.aps.arobot.agent.ARSService");
-		getTargetContext().bindService(sintent, mConnection, Context.BIND_AUTO_CREATE);
-		Log.d(TAG, "Bound server");
-		//runOnMainSync(new ServerThread());
-		//(new ServerThread()).start();
+		try {
+			//Stop the service and rebind
+			getTargetContext().stopService(sintent);
+			boolean r = getTargetContext().bindService(sintent, mConnection, Context.BIND_AUTO_CREATE);
+			if (r) {
+				Log.d(TAG, "Bound server");
+				mResults.putString(Instrumentation.REPORT_KEY_STREAMRESULT,"SUCCESS");
+			} else {
+				Log.e(TAG, "Failed binding service");
+				mResults.putString(Instrumentation.REPORT_KEY_STREAMRESULT,"FAILED");
+			}
+			
+		} catch(Throwable t) {
+			Log.e(TAG, "Failed binding service");
+			mResults.putString(Instrumentation.REPORT_KEY_STREAMRESULT,"ERROR");
+			t.printStackTrace();
+		}
 	}
 	
 	@Override

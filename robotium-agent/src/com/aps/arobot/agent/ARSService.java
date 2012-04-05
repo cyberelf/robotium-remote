@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelEvent;
+import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -21,6 +22,7 @@ import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.channel.group.ChannelGroup;
+import org.jboss.netty.channel.group.ChannelGroupFuture;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
@@ -43,12 +45,14 @@ public class ARSService extends Service {
 	// Default socket, use 8080
 	public static final int DEFAULT_PORT = 8085;
 	public String SERVERIP;
-	private ServerSocket serverSocket;
 		
 	//In buffer from web server
 	private CBuffer cmdBuffer = new CBuffer();
 	//Out buffer to the client
 	private CBuffer opBuffer = new CBuffer();
+	
+	private ChannelFactory channelfactory;
+	private ChannelGroup channelGroup;
 	
 	private final IsService.Stub mBinder = new IsService.Stub() {
 		public String getMessage() {
@@ -80,12 +84,9 @@ public class ARSService extends Service {
 	
 	@Override
 	public void onDestroy() {
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ChannelGroupFuture future = channelGroup.close();
+		future.awaitUninterruptibly();
+		channelfactory.releaseExternalResources();
     }
 	
 	//
@@ -97,6 +98,7 @@ public class ARSService extends Service {
 			return null;
 		}
 	}
+	
 	public void addOutput(String s) {
 		opBuffer.add(s);
 	}
@@ -110,14 +112,15 @@ public class ARSService extends Service {
 		int p = DEFAULT_PORT;
 		Log.d(TAG, "Start listening to port:" + p);
 		// Create bootstrap
-		ServerBootstrap bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(
-											Executors.newCachedThreadPool(), Executors
-											.newCachedThreadPool()));
+		channelfactory = new NioServerSocketChannelFactory(
+				Executors.newCachedThreadPool(), Executors
+				.newCachedThreadPool());
+		ServerBootstrap bootstrap = new ServerBootstrap(channelfactory);
 		bootstrap.setOption("keepAlive", true);
 		
 		Log.d(TAG, "Server bootstrap initialized");
 		
-		ChannelGroup channelGroup = new DefaultChannelGroup();
+		channelGroup = new DefaultChannelGroup();
 		
 		// Create Pipeline
 		com.aps.arobot.sserver.ServerPipelineFactory pipelineFactory = new com.aps.arobot.sserver.ServerPipelineFactory();
