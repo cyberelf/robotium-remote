@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path=""/>
+	<classpathentry excluding="bin/|res/|gen/com/aps/arobot/agent/|gen/com/aps/arobot/|src/com/aps/arobot/agent/|src/com/aps/arobot/sserver/|src/|gen/com/aps/|gen/com/|target/classes/|target/|src/|gen/" kind="src" path=""/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
