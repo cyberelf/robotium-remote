@@ -1,31 +1,55 @@
-===============================================================================
 ROBOTIUM Remote
-===============================================================================
+===============
+
 This is the remote solution for Robotium. 
 
 This solution has a standalone server apk and takes use of the client side and message mechanism of solution from activars (https://github.com/activars/remote-robotium)
 
-* SETUP
+COMPILE FROM SOURCE
+-----
 
-To setup development enviroment in Eclipse, you need to install M2E: http://download.eclipse.org/technology/m2e/releases, and import the pom file in the project root.
+### ENVIROMENT SETUP
+
+To setup development enviroment in Eclipse, you need to install [M2E](http://download.eclipse.org/technology/m2e/releases), and import the pom file in the project root.
 
 After importing, there will be 4 projects:
+* robotium-remote: the root project.
+* robotium-common: the common library (message handling classes)
+* robotium-agent:  the server side code which need to be compiled as android project, and installed on the phone. Use instrumentaion command to start the server.
+* robotium-client: client side code through which user can control the phone with the agent started.
 
-  robotium-remote: the root project.
+### COMPILATION
 
-  robotium-common: the common library (message handling classes)
+Follow the steps to compile and run 
 
-  robotium-agent:  the server side code which need to be compiled as android project, and installed on the phone. Use instrumentaion command to start the server.
+* Run `Maven Install` on project robotium-common and robotium-client.
+* Right click on 'src' folder on project robotium-agent, and select `Build Path` then `Use as Source Folder`.
+* Run project robotium-agent as android project.
 
-  robotium-client: client side code through which user can control the phone with the agent started.
+RUN YOUR TEST
+-------------
 
-Run Maven Install on the root project (Ignore the error on robotium-agent).
+### Start the agent
 
-* SERVER INSTALLATION
+* Start your emulator with the robotium-agent installed.
+* Run this command on shell: `adb shell am instrument -w com.aps.arobot.agent/.RIS`
 
-Run project robotium-agent as Android project. After it is installed on the emnulator or phone, run this command on shell:
+### Run the java client example
 
-"adb shell am instrument -w com.aps.arobot.agent/.RIS"
+* Install android example project 'Notepad' on the emulator.
+* Open project robotium-client and `Use as Source Folder` for folder 'src/main/test'
+* Run 'example.android.notepad.test.' as JUnit Test.
+
+### Run the python client example
+
+* Install Jython.
+* Run `mvn clean package assembly:single` on project robotium-common and robotium-client.
+* run the jython command: 
+  `jython -Dpython.path=$ANDROID_HOME/platforms/android-[version]/android.jar:$ROBOTIUM_REMOTE_HOME/robotium/robotium-common/target/robotium-common-1.0.0-SNAPSHOT-jar-with-dependencies.jar:$ROBOTIUM_REMOTE_HOME/robotium/robotium-common/target/robotium-client-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+* Copy the lines in file `examples/rclient.py` to the jython shell.
+
+
+`adb shell am instrument -w com.aps.arobot.agent/.RIS`
 
 * CLIENT INSTALLATION
 

@@ -2,7 +2,7 @@
 #	Step1: Build assembly 
 #			mvn clean package assembly:single
 #	Step2: Run jython with assembly jar files
-#			jython -Dpython:path=robotium/robotium-common/target/robotium-common-1.0.0-SNAPSHOT-jar-with-dependencies.jar:robotium/robotium-common/target/robotium-client-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+#			jython -Dpython.path=$ANDROID_HOME/platforms/android-[version]/android.jar:robotium/robotium-common/target/robotium-common-1.0.0-SNAPSHOT-jar-with-dependencies.jar:robotium/robotium-common/target/robotium-client-1.0.0-SNAPSHOT-jar-with-dependencies.jar
 #	
 from com.jayway.android.robotium.remotesolo import RemoteSolo
 
