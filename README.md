@@ -45,13 +45,9 @@ RUN YOUR TEST
 * Install Jython.
 * Run `mvn clean package assembly:single` on project robotium-common and robotium-client.
 * run the jython command: 
-  `jython -Dpython.path=$ANDROID_HOME/platforms/android-[version]/android.jar:$ROBOTIUM_REMOTE_HOME/robotium/robotium-common/target/robotium-common-1.0.0-SNAPSHOT-jar-with-dependencies.jar:$ROBOTIUM_REMOTE_HOME/robotium/robotium-common/target/robotium-client-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+  `jython -Dpython.path=android.jar:robotium-common-1.0.0-SNAPSHOT-jar-with-dependencies.jar:robotium-client-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
 * Copy the lines in file `examples/rclient.py` to the jython shell.
 
-
-`adb shell am instrument -w com.aps.arobot.agent/.RIS`
-
-* CLIENT INSTALLATION
+### Client of Other languages
 
 To be added...
-
